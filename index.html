@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thibault Magne — Ingénieur Systèmes Industriels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F2ED;
+    --ink: #1A1814;
+    --ink-soft: #6B6760;
+    --accent: #2D5016;
+    --accent-light: #4A7A28;
+    --rule: #D4CFC8;
+    --card-bg: #EFEBE4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 4rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem;
+    border-right: 1px solid var(--rule);
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent-light);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 420px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+    width: fit-content;
+  }
+
+  .hero-cta:hover { background: var(--accent-light); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 6rem 4rem;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1s;
+  }
+
+  .hero-stat {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+  }
+
+  .hero-stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  section { padding: 6rem 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    line-height: 1.1;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .competences { background: var(--card-bg); }
+
+  .competences-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .comp-card {
+    padding: 2.5rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.2s;
+  }
+
+  .comp-card:hover { background: var(--bg); }
+  .comp-card:nth-child(3n) { border-right: none; }
+
+  .comp-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+
+  .comp-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .comp-list {
+    list-style: none;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 2;
+  }
+
+  .comp-list li::before {
+    content: "— ";
+    color: var(--accent);
+  }
+
+  .projet-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--rule);
+    margin-bottom: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .projet-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+  }
+
+  .projet-card:nth-child(even) { direction: rtl; }
+  .projet-card:nth-child(even) > * { direction: ltr; }
+
+  .projet-image {
+    background: var(--card-bg);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-right: 1px solid var(--rule);
+  }
+
+  .projet-card:nth-child(even) .projet-image {
+    border-right: none;
+    border-left: 1px solid var(--rule);
+  }
+
+  .projet-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 300px;
+  }
+
+  .projet-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--rule) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .projet-content {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .projet-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .projet-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .projet-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .projet-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+  }
+
+  .projet-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.15rem;
+    width: fit-content;
+    transition: gap 0.2s;
+  }
+
+  .projet-link:hover { gap: 1rem; }
+
+  .parcours { background: var(--card-bg); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.35rem;
+    top: 0.4rem;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .timeline-date {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-place {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    max-width: 500px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .contact-left {
+    padding: 4rem;
+    border-right: 1px solid var(--rule);
+  }
+
+  .contact-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-headline em {
+    font-style: italic;
+    color: var(--accent-light);
+  }
+
+  .contact-text {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    max-width: 380px;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-email {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.15rem;
+  }
+
+  .contact-right {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    background: var(--card-bg);
+  }
+
+  .contact-link-icon {
+    font-size: 1.2rem;
+    color: var(--accent);
+    width: 1.5rem;
+    text-align: center;
+  }
+
+  .contact-link-text { font-size: 0.88rem; }
+
+  .contact-link-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--rule); }
+    .hero-right { padding: 3rem 2rem; flex-direction: row; flex-wrap: wrap; }
+    section { padding: 4rem 2rem; }
+    .competences-grid { grid-template-columns: 1fr; }
+    .comp-card { border-right: none; }
+    .projet-card { grid-template-columns: 1fr; direction: ltr !important; }
+    .projet-card:nth-child(even) .projet-image { border-left: none; border-top: 1px solid var(--rule); }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-left { border-right: none; border-bottom: 1px solid var(--rule); }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-name">Thibault Magne</div>
+  <ul class="nav-links">
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Ingénieur Systèmes Industriels · HEIG-VD · Ursy, Fribourg</p>
+    <h1 class="hero-name">Thibault<br><em>Magne</em></h1>
+    <p class="hero-desc">Futur ingénieur en systèmes industriels, orientation conception de machines. Automaticien CFC de formation, à la recherche d'un premier poste d'ingénieur après une formation riche en projets concrets.</p>
+    <a href="#projets" class="hero-cta">Voir mes projets →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hero-stat-number">CAO</div>
+      <div class="hero-stat-label">SolidWorks · Autodesk Fusion · FEM</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">CFC</div>
+      <div class="hero-stat-label">Automaticien avec maturité</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">B2</div>
+      <div class="hero-stat-label">Anglais · Expérience en Irlande</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section class="competences" id="competences">
+  <div class="section-header reveal">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Compétences</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="competences-grid">
+    <div class="comp-card reveal">
+      <div class="comp-icon">⬡</div>
+      <h3 class="comp-title">Conception & CAO</h3>
+      <ul class="comp-list">
+        <li>SolidWorks</li>
+        <li>Autodesk Fusion</li>
+        <li>Modélisation 3D & assemblages</li>
+        <li>Mise en plan & DXF</li>
+        <li>Analyse par éléments finis (FEM)</li>
+      </ul>
+    </div>
+    <div class="comp-card reveal">
+      <div class="comp-icon">∫</div>
+      <h3 class="comp-title">Calculs mécaniques</h3>
+      <ul class="comp-list">
+        <li>Mécanique rationnelle</li>
+        <li>Résistance des matériaux</li>
+        <li>Mécanique des fluides</li>
+        <li>Sciences des matériaux</li>
+        <li>Dimensionnement de structures</li>
+      </ul>
+    </div>
+    <div class="comp-card reveal">
+      <div class="comp-icon">⚙</div>
+      <h3 class="comp-title">Fabrication</h3>
+      <ul class="comp-list">
+        <li>Découpe laser</li>
+        <li>Impression 3D FDM (PLA)</li>
+        <li>Usinage conventionnel</li>
+        <li>Choix & analyse des matériaux</li>
+        <li>Assemblage mécanique</li>
+      </ul>
+    </div>
+    <div class="comp-card reveal">
+      <div class="comp-icon">◈</div>
+      <h3 class="comp-title">Automatisme & électrique</h3>
+      <ul class="comp-list">
+        <li>CFC Automaticien</li>
+        <li>Programmation API</li>
+        <li>Câblage & schémas électriques</li>
+        <li>Capteurs & actionneurs</li>
+        <li>Arduino & microcontrôleurs</li>
+      </ul>
+    </div>
+    <div class="comp-card reveal">
+      <div class="comp-icon">◎</div>
+      <h3 class="comp-title">Gestion de projet</h3>
+      <ul class="comp-list">
+        <li>Méthode agile</li>
+        <li>Planification Gantt</li>
+        <li>Travail interdisciplinaire</li>
+        <li>Documentation technique</li>
+        <li>Microsoft Teams & Planner</li>
+      </ul>
+    </div>
+    <div class="comp-card reveal">
+      <div class="comp-icon">⬙</div>
+      <h3 class="comp-title">Langues & outils</h3>
+      <ul class="comp-list">
+        <li>Français — langue maternelle</li>
+        <li>Anglais — B2 (cours C1)</li>
+        <li>Allemand — scolaire</li>
+        <li>Microsoft Office</li>
+        <li>Git & GitHub</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-header reveal">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Projets</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- TURBOCROP -->
+  <div class="projet-card reveal">
+    <div class="projet-image">
+      <img src="images/serre fermé (1).jpg" alt="TurboCrop — serre automatisée" onerror="this.parentElement.innerHTML='<div class=projet-placeholder><span style=font-size:2rem>🌱</span><span>TurboCrop</span></div>'">
+    </div>
+    <div class="projet-content">
+      <p class="projet-tag">Projet multidisciplinaire · HEIG-VD · 2025</p>
+      <h3 class="projet-title">TurboCrop</h3>
+      <p class="projet-desc">Serre intelligente automatisée capable de réguler température, humidité, arrosage et éclairage avec génération automatique d'un timelapse. Conception et fabrication mécanique complète : modélisation 3D sous SolidWorks, découpe laser sur MDF 8mm, impression 3D PLA pour les pièces spécifiques.</p>
+      <div class="projet-tags">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Découpe laser</span>
+        <span class="tag">Impression 3D</span>
+        <span class="tag">MDF</span>
+        <span class="tag">Multidisciplinaire</span>
+      </div>
+      <a href="https://github.com/Thibault-Magne/turbocrop" class="projet-link" target="_blank">Voir sur GitHub →</a>
+    </div>
+  </div>
+
+  <!-- TRAVAIL DE BACHELOR -->
+  <div class="projet-card reveal">
+    <div class="projet-image">
+      <div class="projet-placeholder">
+        <span style="font-size:2rem">⌚</span>
+        <span>Travail de Bachelor</span>
+      </div>
+    </div>
+    <div class="projet-content">
+      <p class="projet-tag">Travail de Bachelor · HEIG-VD · 2025–2026</p>
+      <h3 class="projet-title">Bague universelle COSC</h3>
+      <p class="projet-desc">Réalisation d'une bague universelle pour le Contrôle Officiel Suisse des Chronomètres (COSC) dans le domaine de l'horlogerie. Projet de précision alliant conception mécanique avancée et contraintes métrologiques spécifiques au secteur horloger.</p>
+      <div class="projet-tags">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Horlogerie</span>
+        <span class="tag">Métrologie</span>
+        <span class="tag">Précision</span>
+        <span class="tag">COSC</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PARCOURS -->
+<section class="parcours" id="parcours">
+  <div class="section-header reveal">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Parcours</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <p class="timeline-date">Sept. 2023 — Juil. 2026</p>
+      <h3 class="timeline-title">Bachelor of Science en Engineering</h3>
+      <p class="timeline-place">HEIG-VD, Yverdon-les-Bains</p>
+      <p class="timeline-desc">Systèmes industriels, orientation conception de machines. Formation riche en projets concrets couvrant la CAO, les calculs mécaniques, la mécanique des fluides, l'automatisme et la gestion de projet.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <p class="timeline-date">Jan. 2022 — Mai 2022</p>
+      <h3 class="timeline-title">Stagiaire Automaticien</h3>
+      <p class="timeline-place">Moffett Parking Solutions, Irlande</p>
+      <p class="timeline-desc">Solutions automatisées sur mesure pour l'optimisation verticale des parkings. Immersion professionnelle complète en milieu anglophone.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <p class="timeline-date">Juil. 2022 — Avr. 2023</p>
+      <h3 class="timeline-title">Soldat — Service long</h3>
+      <p class="timeline-place">Armée Suisse, Inf Ber 204</p>
+      <p class="timeline-desc">Fantassin service long. Développement de la rigueur, du sens des responsabilités et du travail en équipe.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <p class="timeline-date">Août 2018 — Juil. 2022</p>
+      <h3 class="timeline-title">CFC Automaticien avec maturité</h3>
+      <p class="timeline-place">École des Métiers Fribourg</p>
+      <p class="timeline-desc">Formation professionnelle complète en automatisme avec obtention de la maturité professionnelle. Base technique solide pour la compréhension des systèmes industriels.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="contact-grid reveal">
+    <div class="contact-left">
+      <h3 class="contact-headline">À la recherche d'un premier poste<br><em>d'ingénieur</em></h3>
+      <p class="contact-text">Diplômé en systèmes industriels à la HEIG-VD, orientation conception de machines. Disponible dès juillet 2026. N'hésitez pas à me contacter pour toute opportunité.</p>
+      <a href="mailto:thibault.magne20@gmail.com" class="contact-email">thibault.magne20@gmail.com</a>
+    </div>
+    <div class="contact-right">
+      <a href="tel:+41796205369" class="contact-link">
+        <span class="contact-link-icon">✆</span>
+        <div>
+          <div class="contact-link-text">+41 79 620 53 69</div>
+          <div class="contact-link-label">Téléphone</div>
+        </div>
+      </a>
+      <a href="https://github.com/Thibault-Magne" class="contact-link" target="_blank">
+        <span class="contact-link-icon">⌥</span>
+        <div>
+          <div class="contact-link-text">github.com/Thibault-Magne</div>
+          <div class="contact-link-label">GitHub · Projets</div>
+        </div>
+      </a>
+      <a href="CV_ThibaultMagne_2026.pdf" class="contact-link" download>
+        <span class="contact-link-icon">↓</span>
+        <div>
+          <div class="contact-link-text">Télécharger mon CV</div>
+          <div class="contact-link-label">PDF · Curriculum vitae</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Thibault Magne</span>
+  <span>Ingénieur Systèmes Industriels · HEIG-VD · Ursy, Fribourg</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
