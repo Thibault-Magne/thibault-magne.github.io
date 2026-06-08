@@ -11,8 +11,8 @@
     --bg: #F5F2ED;
     --ink: #1A1814;
     --ink-soft: #6B6760;
-    --accent: #2D5016;
-    --accent-light: #4A7A28;
+    --accent: #3A3A3A;
+    --accent-light: #5A5A5A;
     --rule: #D4CFC8;
     --card-bg: #EFEBE4;
   }
@@ -66,8 +66,9 @@
 
   .hero {
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-top: 5rem;
   }
 
@@ -75,8 +76,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: 6rem 4rem;
-    border-right: 1px solid var(--rule);
+    width: 100%;
   }
 
   .hero-tag {
@@ -106,7 +109,7 @@
   .hero-desc {
     font-size: 1.05rem;
     color: var(--ink-soft);
-    max-width: 420px;
+    max-width: 600px;
     margin-bottom: 3rem;
     opacity: 0;
     animation: fadeUp 0.8s ease forwards 0.6s;
@@ -319,7 +322,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 2rem;
   }
 
   .tag {
@@ -344,6 +346,7 @@
     padding-bottom: 0.15rem;
     width: fit-content;
     transition: gap 0.2s;
+    margin-top: 1.5rem;
   }
 
   .projet-link:hover { gap: 1rem; }
@@ -513,9 +516,8 @@
   @media (max-width: 900px) {
     nav { padding: 1.25rem 2rem; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--rule); }
-    .hero-right { padding: 3rem 2rem; flex-direction: row; flex-wrap: wrap; }
+    .hero { min-height: auto; padding-top: 5rem; }
+    .hero-left { padding: 4rem 2rem; max-width: 100%; }
     section { padding: 4rem 2rem; }
     .competences-grid { grid-template-columns: 1fr; }
     .comp-card { border-right: none; }
@@ -534,6 +536,7 @@
   <ul class="nav-links">
     <li><a href="#competences">Compétences</a></li>
     <li><a href="#projets">Projets</a></li>
+    <li><a href="#autres-projets">Autres projets</a></li>
     <li><a href="#parcours">Parcours</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -547,20 +550,7 @@
     <p class="hero-desc">Futur ingénieur en systèmes industriels, orientation conception de machines. Automaticien CFC de formation, à la recherche d'un premier poste d'ingénieur après une formation riche en projets concrets.</p>
     <a href="#projets" class="hero-cta">Voir mes projets →</a>
   </div>
-  <div class="hero-right">
-    <div class="hero-stat">
-      <div class="hero-stat-number">CAO</div>
-      <div class="hero-stat-label">SolidWorks · Autodesk Fusion · FEM</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-number">CFC</div>
-      <div class="hero-stat-label">Automaticien avec maturité</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-number">B2</div>
-      <div class="hero-stat-label">Anglais · Expérience en Irlande</div>
-    </div>
-  </div>
+
 </section>
 
 <!-- COMPETENCES -->
@@ -648,10 +638,33 @@
     <div class="section-rule"></div>
   </div>
 
-  <!-- TURBOCROP -->
+  <!-- TRAVAIL DE BACHELOR -->
   <div class="projet-card reveal">
     <div class="projet-image">
-      <img src="images/serre_ferme.jpg" alt="TurboCrop — serre automatisée" onerror="this.parentElement.innerHTML='<div class=projet-placeholder><span style=font-size:2rem>🌱</span><span>TurboCrop</span></div>'">
+      <div class="projet-placeholder">
+        <span style="font-size:2rem">⌚</span>
+        <span>Travail de Bachelor</span>
+      </div>
+    </div>
+    <div class="projet-content">
+      <p class="projet-tag">Travail de Bachelor · HEIG-VD · 2025–2026</p>
+      <h3 class="projet-title">Bague universelle COSC</h3>
+      <p class="projet-desc">Réalisation d'une bague universelle pour le Contrôle Officiel Suisse des Chronomètres (COSC) dans le domaine de l'horlogerie. Projet de précision alliant conception mécanique avancée et contraintes métrologiques spécifiques au secteur horloger.</p>
+      <div class="projet-tags">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Horlogerie</span>
+        <span class="tag">Métrologie</span>
+        <span class="tag">Précision</span>
+        <span class="tag">COSC</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TURBOCROP -->
+  <div class="projet-card reveal">
+    <div class="projet-image" style="display:flex; flex-direction:row; align-items:stretch; overflow:hidden;">
+      <img src="images/serre_ferme.jpg" alt="Serre fermée" style="width:50%; height:100%; object-fit:cover; min-height:300px;">
+      <img src="images/serre_ouverte.jpg" alt="Serre ouverte" style="width:50%; height:100%; object-fit:cover; min-height:300px; border-left:1px solid var(--rule);">
     </div>
     <div class="projet-content">
       <p class="projet-tag">Projet multidisciplinaire · HEIG-VD · 2025</p>
@@ -664,10 +677,30 @@
         <span class="tag">MDF</span>
         <span class="tag">Multidisciplinaire</span>
       </div>
-      <div style="display:flex; gap:0.75rem; margin-bottom:1.5rem;">
-  <img src="images/serre_ferme.jpg" alt="Serre fermée" style="width:50%; object-fit:cover; border:1px solid var(--rule);">
-  <img src="images/serre_ouverte.jpg" alt="Serre ouverte" style="width:50%; object-fit:cover; border:1px solid var(--rule);">
-    </div><a href="https://github.com/Thibault-Magne/turbocrop" class="projet-link" target="_blank">Voir sur GitHub →</a>
+    </div>
+  </div>
+
+  <!-- EXTRACTEUR DE POUDRE LPBF -->
+  <div class="projet-card reveal">
+    <div class="projet-image" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; padding:1.5rem; background:var(--card-bg);">
+      <img src="images/extracteur_poudre.png" alt="Système d'extraction de poudre" style="width:100%; max-height:120px; object-fit:contain;">
+      <div style="display:flex; gap:0.75rem; width:100%;">
+        <img src="images/analyse_vibratoire.png" alt="Analyse vibratoire" style="width:50%; max-height:100px; object-fit:contain;">
+        <img src="images/MEP_chassis.png" alt="Mise en plan châssis" style="width:50%; max-height:100px; object-fit:contain;">
+      </div>
+    </div>
+    <div class="projet-content">
+      <p class="projet-tag">Projet de conception · HEIG-VD · 2026</p>
+      <h3 class="projet-title">Système d'extraction de poudre LPBF</h3>
+      <p class="projet-desc">Conception d'un système automatisé d'extraction de poudre métallique résiduelle sur des pièces fabriquées par fusion laser sur lit de poudre (LPBF). Le dépoudrage manuel sous hotte à flux laminaire étant long et risqué pour l'opérateur, le système développé automatise ce processus. Recherche de solutions, conception mécanique complète du châssis, intégration des composants, dimensionnement, analyse vibratoire et mise en plan.</p>
+      <div class="projet-tags">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">LPBF</span>
+        <span class="tag">Analyse vibratoire</span>
+        <span class="tag">Mise en plan</span>
+        <span class="tag">Automatisation</span>
+        <span class="tag">Conception mécanique</span>
+      </div>
     </div>
   </div>
 
@@ -692,34 +725,60 @@
     </div>
   </div>
 
-  <!-- TRAVAIL DE BACHELOR -->
-  <div class="projet-card reveal">
-    <div class="projet-image">
-      <div class="projet-placeholder">
-        <span style="font-size:2rem">⌚</span>
-        <span>Travail de Bachelor</span>
-      </div>
-    </div>
-    <div class="projet-content">
-      <p class="projet-tag">Travail de Bachelor · HEIG-VD · 2025–2026</p>
-      <h3 class="projet-title">Bague universelle COSC</h3>
-      <p class="projet-desc">Réalisation d'une bague universelle pour le Contrôle Officiel Suisse des Chronomètres (COSC) dans le domaine de l'horlogerie. Projet de précision alliant conception mécanique avancée et contraintes métrologiques spécifiques au secteur horloger.</p>
-      <div class="projet-tags">
-        <span class="tag">SolidWorks</span>
-        <span class="tag">Horlogerie</span>
-        <span class="tag">Métrologie</span>
-        <span class="tag">Précision</span>
-        <span class="tag">COSC</span>
-      </div>
-    </div>
+</section>
+
+<!-- AUTRES PROJETS -->
+<section id="autres-projets" style="background:var(--card-bg);">
+  <div class="section-header reveal">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Autres projets</h2>
+    <div class="section-rule"></div>
   </div>
 
+  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:2rem;">
+
+    <!-- EMBRAYAGE TONDEUSE -->
+    <div class="reveal" style="border:1px solid var(--rule); overflow:hidden; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(0,0,0,0.07)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="display:grid; grid-template-columns:1fr 1fr; height:180px; overflow:hidden;">
+        <img src="images/tondeuse_iso.png" alt="Embrayage tondeuse ISO" style="width:100%; height:180px; object-fit:cover;">
+        <img src="images/tondeuse_dessus.png" alt="Embrayage tondeuse dessus" style="width:100%; height:180px; object-fit:cover; border-left:1px solid var(--rule);">
+      </div>
+      <div style="padding:1.25rem;">
+        <p style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">Conception mécanique</p>
+        <p style="font-family:'DM Serif Display',serif; font-size:1rem;">Embrayage pour tondeuse à gazon</p>
+      </div>
+    </div>
+
+    <!-- SYSTÈME À CAMES -->
+    <div class="reveal" style="border:1px solid var(--rule); overflow:hidden; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(0,0,0,0.07)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="display:grid; grid-template-columns:1fr 1fr; height:180px; overflow:hidden;">
+        <img src="images/came_iso.png" alt="Système à cames ISO" style="width:100%; height:180px; object-fit:cover;">
+        <img src="images/came_face.png" alt="Système à cames face" style="width:100%; height:180px; object-fit:cover; border-left:1px solid var(--rule);">
+      </div>
+      <div style="padding:1.25rem;">
+        <p style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">Conception mécanique</p>
+        <p style="font-family:'DM Serif Display',serif; font-size:1rem;">Système de mouvement par cames</p>
+      </div>
+    </div>
+
+    <!-- MICROSCOPE À FLUORESCENCE -->
+    <div class="reveal" style="border:1px solid var(--rule); overflow:hidden; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(0,0,0,0.07)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="height:180px; overflow:hidden;">
+        <img src="images/virfy.png" alt="Microscope à fluorescence portable" style="width:100%; height:180px; object-fit:cover;">
+      </div>
+      <div style="padding:1.25rem;">
+        <p style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">Miniaturisation · Université de Fribourg</p>
+        <p style="font-family:'DM Serif Display',serif; font-size:1rem;">Microscope à fluorescence portable</p>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- PARCOURS -->
 <section class="parcours" id="parcours">
   <div class="section-header reveal">
-    <span class="section-number">03</span>
+    <span class="section-number">04</span>
     <h2 class="section-title">Parcours</h2>
     <div class="section-rule"></div>
   </div>
@@ -759,7 +818,7 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-header reveal">
-    <span class="section-number">04</span>
+    <span class="section-number">05</span>
     <h2 class="section-title">Contact</h2>
     <div class="section-rule"></div>
   </div>
